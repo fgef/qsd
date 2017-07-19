@@ -1,4 +1,4 @@
-package com.qsd.qsd_server;
+package com.qsd.server;
 
 /**
  * Hello world!
