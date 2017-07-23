@@ -2,108 +2,144 @@ package com.qsd.model;
 
 import java.util.Date;
 
+import com.google.gson.Gson;
+
+/**
+ * 用户信息
+ * 
+ * @author orange
+ *
+ */
 public class User {
-    /**
-     * user.id;id
-     */
-    private Integer id;
+	/**
+	 * user.id;id
+	 */
+	private Integer id;
 
-    /**
-     * user.phone;手机号，非收件人号
-     */
-    private String phone;
+	/**
+	 * user.phone;手机号，非收件人号
+	 */
+	private String phone;
 
-    /**
-     * user.accepte_code;受邀请码
-     */
-    private String accepteCode;
+	/**
+	 * user.accepte_code;受邀请码
+	 */
+	private String accepteCode;
 
-    /**
-     * user.accepte_user_id;受邀请人ID
-     */
-    private Integer accepteUserId;
+	/**
+	 * user.accepte_user_id;受邀请人ID
+	 */
+	private Integer accepteUserId;
 
-    /**
-     * user.accepte_user_phone;受邀请人手机号
-     */
-    private String accepteUserPhone;
+	/**
+	 * user.accepte_user_phone;受邀请人手机号
+	 */
+	private String accepteUserPhone;
 
-    /**
-     * user.head_portrait;用户头像地址
-     */
-    private String headPortrait;
+	/**
+	 * user.head_portrait;用户头像地址
+	 */
+	private String headPortrait;
 
-    /**
-     * user.band_wx;是否绑定微信，0：未绑定，1已绑定
-     */
-    private Byte bandWx;
+	/**
+	 * user.band_wx;是否绑定微信，0：未绑定，1已绑定
+	 */
+	private Byte bandWx;
 
-    /**
-     * user.regist_time;注册时间
-     */
-    private Date registTime;
+	/**
+	 * user.regist_time;注册时间
+	 */
+	private Date registTime;
 
-    public Integer getId() {
-        return id;
-    }
+	public static User getRegistInstance(String phone) {
+		return new User(null, phone, null, null, null, null, null, new Date());
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	private User() {
+		super();
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	private User(Integer id, String phone, String accepteCode, Integer accepteUserId, String accepteUserPhone,
+			String headPortrait, Byte bandWx, Date registTime) {
+		super();
+		this.id = id;
+		this.phone = phone;
+		this.accepteCode = accepteCode;
+		this.accepteUserId = accepteUserId;
+		this.accepteUserPhone = accepteUserPhone;
+		this.headPortrait = headPortrait;
+		this.bandWx = bandWx;
+		this.registTime = registTime;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getAccepteCode() {
-        return accepteCode;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setAccepteCode(String accepteCode) {
-        this.accepteCode = accepteCode == null ? null : accepteCode.trim();
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public Integer getAccepteUserId() {
-        return accepteUserId;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone == null ? null : phone.trim();
+	}
 
-    public void setAccepteUserId(Integer accepteUserId) {
-        this.accepteUserId = accepteUserId;
-    }
+	public String getAccepteCode() {
+		return accepteCode;
+	}
 
-    public String getAccepteUserPhone() {
-        return accepteUserPhone;
-    }
+	public void setAccepteCode(String accepteCode) {
+		this.accepteCode = accepteCode == null ? null : accepteCode.trim();
+	}
 
-    public void setAccepteUserPhone(String accepteUserPhone) {
-        this.accepteUserPhone = accepteUserPhone == null ? null : accepteUserPhone.trim();
-    }
+	public Integer getAccepteUserId() {
+		return accepteUserId;
+	}
 
-    public String getHeadPortrait() {
-        return headPortrait;
-    }
+	public void setAccepteUserId(Integer accepteUserId) {
+		this.accepteUserId = accepteUserId;
+	}
 
-    public void setHeadPortrait(String headPortrait) {
-        this.headPortrait = headPortrait == null ? null : headPortrait.trim();
-    }
+	public String getAccepteUserPhone() {
+		return accepteUserPhone;
+	}
 
-    public Byte getBandWx() {
-        return bandWx;
-    }
+	public void setAccepteUserPhone(String accepteUserPhone) {
+		this.accepteUserPhone = accepteUserPhone == null ? null : accepteUserPhone.trim();
+	}
 
-    public void setBandWx(Byte bandWx) {
-        this.bandWx = bandWx;
-    }
+	public String getHeadPortrait() {
+		return headPortrait;
+	}
 
-    public Date getRegistTime() {
-        return registTime;
-    }
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait == null ? null : headPortrait.trim();
+	}
 
-    public void setRegistTime(Date registTime) {
-        this.registTime = registTime;
-    }
+	public Byte getBandWx() {
+		return bandWx;
+	}
+
+	public void setBandWx(Byte bandWx) {
+		this.bandWx = bandWx;
+	}
+
+	public Date getRegistTime() {
+		return registTime;
+	}
+
+	public void setRegistTime(Date registTime) {
+		this.registTime = registTime;
+	}
+
+	@Override
+	public String toString() {
+		Gson g = new Gson();
+		return g.toJson(this);
+	}
+
 }

@@ -1,7 +1,10 @@
 package com.qsd.server.mapper;
 
+import org.springframework.stereotype.Service;
+
 import com.qsd.model.User;
 
+@Service
 public interface UserMapper {
 	/**
 	 * user

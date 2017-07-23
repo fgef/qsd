@@ -2,6 +2,14 @@ package com.qsd.model;
 
 import java.util.Date;
 
+import com.google.gson.Gson;
+
+/**
+ * 订单 用户申请领取即产生一个订单
+ * 
+ * @author orange
+ *
+ */
 public class OrderItem {
 	/**
 	 * order_item.id;
@@ -92,5 +100,11 @@ public class OrderItem {
 
 	public void setAddressId(Integer addressId) {
 		this.addressId = addressId;
+	}
+
+	@Override
+	public String toString() {
+		Gson g = new Gson();
+		return g.toJson(this);
 	}
 }
