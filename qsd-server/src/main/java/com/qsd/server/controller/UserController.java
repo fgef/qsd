@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.qsd.data.RespCode;
+import com.qsd.data.RespData;
 import com.qsd.model.User;
 import com.qsd.server.inter.UserService;
 import com.qsd.util.MD5;
@@ -25,15 +27,15 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "regist", method = RequestMethod.POST)
-	public Integer regist(@RequestParam("phone") String phone, @RequestParam("encrypt") String encrypt)
+	public RespData regist(@RequestParam("phone") String phone, @RequestParam("encrypt") String encrypt)
 			throws Exception {
 		String r = MD5.GetMD5Code(phone);
 		if (r != null && r.equals(encrypt)) {
 			User u = User.getRegistInstance(phone);
 			Integer id = userService.regist(u);
-			return id;
+			return RespData.getSuccResp(id);
 		} else {
-			throw new Exception("validate phone num wrong!");
+			return RespData.getErrorResp(RespCode.USER_WRONG_PHONE_ENCRYPT, "validate phone num wrong!");
 		}
 	}
 }
