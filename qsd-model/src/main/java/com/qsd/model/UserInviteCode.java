@@ -22,6 +22,11 @@ public class UserInviteCode {
 	private Integer paymentId;
 
 	/**
+	 * 用户id
+	 */
+	private Integer userId;
+
+	/**
 	 * user_invite_code.invite_code;邀请码
 	 */
 	private String inviteCode;
@@ -30,6 +35,23 @@ public class UserInviteCode {
 	 * user_invite_code.create_time;创建时间
 	 */
 	private Date createTime;
+
+	public static UserInviteCode getInstance(Integer paymentId, Integer userId, String inviteCode) {
+		return new UserInviteCode(null, paymentId, userId, inviteCode, new Date());
+	}
+
+	private UserInviteCode(Integer id, Integer paymentId, Integer userId, String inviteCode, Date createTime) {
+		super();
+		this.id = id;
+		this.paymentId = paymentId;
+		this.userId = userId;
+		this.inviteCode = inviteCode;
+		this.createTime = createTime;
+	}
+
+	private UserInviteCode() {
+		super();
+	}
 
 	public Integer getId() {
 		return id;
@@ -41,6 +63,14 @@ public class UserInviteCode {
 
 	public Integer getPaymentId() {
 		return paymentId;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public void setPaymentId(Integer paymentId) {

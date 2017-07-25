@@ -8,7 +8,7 @@ public interface PaymentService {
 	 * 完成支付
 	 * 
 	 * @param payment
-	 * @return 邀请码
+	 * @return
 	 */
-	public String finishPayment(Payment payment);
+	public Payment finishPayment(Payment payment);
 }

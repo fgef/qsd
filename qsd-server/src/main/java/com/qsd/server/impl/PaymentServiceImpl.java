@@ -14,10 +14,10 @@ public class PaymentServiceImpl implements PaymentService {
 	private PaymentMapper paymentMapper;
 
 	@Override
-	public String finishPayment(Payment payment) {
-		String inviteCode = null;
-		paymentMapper.insert(payment);
-		return inviteCode;
+	public Payment finishPayment(Payment payment) {
+		int id = paymentMapper.insert(payment);
+		Payment p = paymentMapper.selectByPrimaryKey(id);
+		return p;
 	}
 
 }
