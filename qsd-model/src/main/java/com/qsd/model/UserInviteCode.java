@@ -17,9 +17,9 @@ public class UserInviteCode {
 	private Integer id;
 
 	/**
-	 * user_invite_code.order_item_id;订单ID
+	 * user_invite_code.order_item_id;支付ID
 	 */
-	private Integer orderItemId;
+	private Integer paymentId;
 
 	/**
 	 * user_invite_code.invite_code;邀请码
@@ -39,12 +39,12 @@ public class UserInviteCode {
 		this.id = id;
 	}
 
-	public Integer getOrderItemId() {
-		return orderItemId;
+	public Integer getPaymentId() {
+		return paymentId;
 	}
 
-	public void setOrderItemId(Integer orderItemId) {
-		this.orderItemId = orderItemId;
+	public void setPaymentId(Integer paymentId) {
+		this.paymentId = paymentId;
 	}
 
 	public String getInviteCode() {

@@ -3,11 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.qsd</groupId>
 	<artifactId>qsd-server</artifactId>
-	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>qsd-server Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -113,24 +112,28 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-        	<version>1.4.2.RELEASE</version>
+			<version>1.4.2.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-        	<version>1.4.2.RELEASE</version>
+			<version>1.4.2.RELEASE</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>1.4.2.RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<finalName>qsd-server</finalName>
 		<plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.5</version>
@@ -139,17 +142,6 @@
 					<includeEmptyDirs>true</includeEmptyDirs>
 					<overwrite>true</overwrite>
 					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<warName>ROOT</warName>
-					<webXml>${basedir}/webapp/WEB-INF/web.xml</webXml>
-					<failOnMissingWebXml>true</failOnMissingWebXml>
-					<webappDirectory>${basedir}/webapp</webappDirectory>
-					<warSourceDirectory>${basedir}/webapp</warSourceDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -189,11 +181,92 @@
 					<stopPort />
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.qsd.server.config.Application</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			
+			<plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-maven-plugin</artifactId>
+                            <version>1.4.2.RELEASE</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <keepDependenciesWithProvidedScope>true</keepDependenciesWithProvidedScope>
+                        <createDependencyReducedPom>true</createDependencyReducedPom>
+                        <filters>
+                            <filter>
+                                <artifact>*:*</artifact>
+                                <excludes>
+                                    <exclude>META-INF/*.SF</exclude>
+                                    <exclude>META-INF/*.DSA</exclude>
+                                    <exclude>META-INF/*.RSA</exclude>
+                                </excludes>
+                            </filter>
+                        </filters>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>shade</goal>
+                            </goals>
+                            <configuration>
+                                <transformers>
+                                    <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                        <resource>META-INF/spring.handlers</resource>
+                                    </transformer>
+                                    <transformer implementation="org.springframework.boot.maven.PropertiesMergingResourceTransformer">
+                                        <resource>META-INF/spring.factories</resource>
+                                    </transformer>
+                                    <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                        <resource>META-INF/spring.schemas</resource>
+                                    </transformer>
+                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+										<mainClass>com.qsd.server.config.Application</mainClass>
+                                    </transformer>
+                                </transformers>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+			
+			
 		</plugins>
 	</build>
 	<properties>
 		<spring.version>4.3.4.RELEASE</spring.version>
 	</properties>
-
-
 </project>
