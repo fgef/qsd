@@ -17,6 +17,7 @@ public class PaymentServiceImpl implements PaymentService {
 	public Payment finishPayment(Payment payment) {
 		int id = paymentMapper.insert(payment);
 		Payment p = paymentMapper.selectByPrimaryKey(id);
+		p.setId(id);
 		return p;
 	}
 

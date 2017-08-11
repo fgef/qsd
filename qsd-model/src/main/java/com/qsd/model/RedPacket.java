@@ -22,11 +22,6 @@ public class RedPacket {
 	private Integer userId;
 
 	/**
-	 * red_packet.order_item_id;订单ID
-	 */
-	private Integer orderItemId;
-
-	/**
 	 * red_packet.account;红包金额
 	 */
 	private Double account;
@@ -46,6 +41,31 @@ public class RedPacket {
 	 */
 	private Byte type;
 
+	public RedPacket() {
+		super();
+	}
+
+	public static RedPacket getPaymentRedPacket(Integer userId, Double account, Byte status) {
+		return new RedPacket(userId, account, new Date(), status, Constant.REDPACKET_TYPE_PAYMENT);
+	}
+
+	public static RedPacket getRelayRedPacket(Integer userId, Double account, Byte status) {
+		return new RedPacket(userId, account, new Date(), status, Constant.REDPACKET_TYPE_RELAY);
+	}
+
+	public static RedPacket getInviteRedPacket(Integer userId, Double account, Byte status) {
+		return new RedPacket(userId, account, new Date(), status, Constant.REDPACKET_TYPE_INVITE);
+	}
+
+	private RedPacket(Integer userId, Double account, Date createTime, Byte status, Byte type) {
+		super();
+		this.userId = userId;
+		this.account = account;
+		this.createTime = createTime;
+		this.status = status;
+		this.type = type;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -60,14 +80,6 @@ public class RedPacket {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
-	}
-
-	public Integer getOrderItemId() {
-		return orderItemId;
-	}
-
-	public void setOrderItemId(Integer orderItemId) {
-		this.orderItemId = orderItemId;
 	}
 
 	public Double getAccount() {

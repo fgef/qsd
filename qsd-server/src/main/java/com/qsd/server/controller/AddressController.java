@@ -21,7 +21,7 @@ public class AddressController {
 	private UserAddressService userAddressService;
 
 	@ResponseBody
-	@RequestMapping(value = "validate")
+	@RequestMapping(value = "add")
 	public RespData createAddress(@RequestBody String json) {
 		if (!StringUtils.isEmpty(json)) {
 			UserAddress addr = new Gson().fromJson(json, UserAddress.class);

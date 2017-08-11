@@ -14,6 +14,7 @@ import com.qsd.data.RespData;
 import com.qsd.model.Payment;
 import com.qsd.model.UserInviteCode;
 import com.qsd.server.inter.PaymentService;
+import com.qsd.server.inter.RedPacketService;
 import com.qsd.server.inter.UserInviteCodeService;
 import com.qsd.util.DesUtil;
 
@@ -26,6 +27,9 @@ public class PaymentController {
 	@Autowired
 	UserInviteCodeService userInviteCodeService;
 
+	@Autowired
+	RedPacketService redPacketService;
+
 	@ResponseBody
 	@RequestMapping(value = "finish", method = RequestMethod.POST)
 	public RespData finish(@RequestBody String json) throws Exception {
@@ -36,7 +40,7 @@ public class PaymentController {
 			return RespData.getErrorResp(RespCode.ERROR, "empty json!");
 		} else {
 			payment = new Gson().fromJson(json, Payment.class);
-			paymentService.finishPayment(payment);
+			payment = paymentService.finishPayment(payment);
 		}
 
 		// 产生邀请码
@@ -45,6 +49,9 @@ public class PaymentController {
 		UserInviteCode userInviteCode = UserInviteCode.getInstance(payment.getId(), payment.getUserId(), inviteCode);
 
 		userInviteCodeService.create(userInviteCode);
+
+		// 生成红包
+
 		return RespData.getSuccResp(DesUtil.encrypt(inviteCode));
 	}
 }

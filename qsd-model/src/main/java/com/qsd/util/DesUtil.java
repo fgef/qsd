@@ -24,9 +24,10 @@ public class DesUtil {
 	private final static String defaultKey = "test1234";
 
 	public static void main(String[] args) throws Exception {
-		String data = "测试ss";
-		System.out.println(encrypt(data));
-		System.out.println(decrypt(encrypt(data)));
+		System.out.println(encrypt("18612110662"));
+		System.out.println(encrypt("1861211066a"));
+		System.out.println(encrypt("1861211062"));
+		System.out.println(encrypt("18612110663"));
 	}
 
 	/**

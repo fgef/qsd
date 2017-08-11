@@ -1,6 +1,9 @@
 package com.qsd.model;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import com.google.gson.Gson;
 
@@ -52,7 +55,7 @@ public class User {
 	private Date registTime;
 
 	public static User getRegistInstance(String phone) {
-		return new User(null, phone, null, null, null, null, null, new Date());
+		return new User(null, phone, null, null, null, null, (byte) 0, new Date());
 	}
 
 	private User() {
@@ -142,4 +145,10 @@ public class User {
 		return g.toJson(this);
 	}
 
+	public boolean isChinaPhoneLegal() throws PatternSyntaxException {
+		String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+		Pattern p = Pattern.compile(regExp);
+		Matcher m = p.matcher(this.phone);
+		return m.matches();
+	}
 }

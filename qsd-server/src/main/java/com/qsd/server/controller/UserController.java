@@ -33,6 +33,10 @@ public class UserController {
 		String p = DesUtil.decrypt(phone);
 		if (!StringUtils.isEmpty(p)) {
 			User u = User.getRegistInstance(p);
+			if (u.isChinaPhoneLegal()) {
+				return RespData.getErrorResp(RespCode.USER_WRONG_PHONE_FORMAT, "wrong phone num format!");
+			}
+			u.isChinaPhoneLegal();
 			Integer id = userService.regist(u);
 			return RespData.getSuccResp(id);
 		} else {

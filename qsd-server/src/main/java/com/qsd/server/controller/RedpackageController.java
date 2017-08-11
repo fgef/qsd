@@ -17,6 +17,7 @@ public class RedpackageController {
 
 	@Autowired
 	PaymentService paymentService;
+
 	@Autowired
 	UserInviteCodeService userInviteCodeService;
 

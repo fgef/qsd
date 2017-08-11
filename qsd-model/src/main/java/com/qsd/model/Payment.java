@@ -32,11 +32,6 @@ public class Payment {
 	private Date paymentTime;
 
 	/**
-	 * payment.order_item_id;订单ID
-	 */
-	private Integer orderItemId;
-
-	/**
 	 * payment.status;支付状态，0：未支付，1：已支付
 	 */
 	private Byte status;
@@ -71,14 +66,6 @@ public class Payment {
 
 	public void setPaymentTime(Date paymentTime) {
 		this.paymentTime = paymentTime;
-	}
-
-	public Integer getOrderItemId() {
-		return orderItemId;
-	}
-
-	public void setOrderItemId(Integer orderItemId) {
-		this.orderItemId = orderItemId;
 	}
 
 	public Byte getStatus() {
